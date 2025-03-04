@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Anime and django
+{% endblock %}
+
+{% block content  %}
+
+<h1 class="text-center  mt-4">
+    Welcome to AniTweet 
+</h1>
+
+<div class="description">
+<h5 class="text mt-4">
+    A fun and engaging tweet app inspired by anime culture. Connect with fellow otakus, share your thoughts, 
+    and explore trending topics with a kawaii twist! Perfect for anime fans who love to chirp their way through the fandom world. 
+</h5>
+</div>
+<a class= "btn btn-primary mt-3"
+    href="{% url 'Tweet_create' %}">Create a Tweet</a>
+<div class="container row mt-4 gap-3">
+ {% for tweet in tweets %}
+ <div class="card  mt-2 "  style="width: 18rem;">
+    <img src="{{tweet.photo.url}}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{tweet.user.username}}</h5>
+      <p class="card-text">{{tweet.text}}.</p>
+      {% if tweet.user == user %}
+      <a href="{% url 'Tweet_edit' tweet.id%}" class="btn btn-primary">Edit</a>
+      <a href="{% url 'Tweet_delete' tweet.id%}" class="btn btn-danger">Delete</a>
+      {% endif %}
+ </div>
+</div>
+
+    {% endfor %}
+</div>
+
+{% endblock %}
